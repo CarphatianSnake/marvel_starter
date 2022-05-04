@@ -10,27 +10,54 @@ class CharList extends Component {
   state = {
     chars: [],
     loading: true,
-    error: false
+    error: false,
+    newItemLoading: false,
+    offset: 210,
+    charsEnded: false
   }
   
   componentDidMount() {
-    this.updateCharsList();
+    this.onRequest();
+    window.addEventListener('scroll', this.onScroll, {passive: true});
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('scroll', this.onScroll);
+  }
+
+  onScroll = () => {
+    if (window.pageYOffset + document.documentElement.clientHeight >= document.documentElement.scrollHeight) {
+      this.onRequest(this.state.offset);
+    }
+  }
+
+  onCharListLoading = () => {
+    this.setState({
+      newItemLoading: true
+    })
   }
 
   marvelService = new MarvelService();
 
-  onCharsLoaded = (chars) => {
-    this.setState({
-      chars: chars,
-      loading: false
-    })
-  }
-
-  updateCharsList = () => {
+  onRequest = (offset) => {
+    this.onCharListLoading();
     this.marvelService
-      .getAllCharaters()
+      .getAllCharaters(offset)
       .then(this.onCharsLoaded)
       .catch(this.onError);
+  }
+
+  onCharsLoaded = (newChars) => {
+    let ended = false;
+    if (newChars.length < 9) ended = true;
+
+    this.setState(({chars, offset}) => ({
+      chars: [...chars, ...newChars],
+      loading: false,
+      newItemLoading: false,
+      offset: offset + 9,
+      charsEnded: ended
+    }))
   }
 
   onError = () => {
@@ -63,7 +90,7 @@ class CharList extends Component {
   }
 
   render() {
-    const {chars, loading, error} = this.state;
+    const {chars, loading, error, offset, newItemLoading, charsEnded} = this.state;
     const items = this.viewChar(chars);
     const errorMessage = error ? <ErrorMessage/> : null;
     const spinner = loading ? <Spinner/> : null;
@@ -73,30 +100,16 @@ class CharList extends Component {
         {errorMessage}
         {spinner}
         {content}
-        <button className="button button__main button__long">
+        <button
+          className="button button__main button__long"
+          disabled={newItemLoading}
+          style={{'display': charsEnded ? 'none' : 'block'}}
+          onClick={() => this.onRequest(offset)}>
           <div className="inner">load more</div>
         </button>
       </div>
     )
   }
 }
-
-// const ViewChar = ({chars}) => {
-//   return (
-//     chars.map(item => {
-//       const {name, thumbnail, id} = item;
-//       let imgStyle = {'objectFit' : 'cover'};
-//       if (thumbnail.includes('image_not_available.jpg')) {
-//         imgStyle = {'objectFit' : 'contain'};
-//       }
-//       return (
-//         <li className="char__item" key={id} onClick={() => this.props.onCharSelected(id)}>
-//           <img src={thumbnail} alt={name} style={imgStyle}/>
-//           <div className="char__name">{name}</div>
-//         </li>
-//       )
-//     })
-//   )
-// }
 
 export default CharList;
