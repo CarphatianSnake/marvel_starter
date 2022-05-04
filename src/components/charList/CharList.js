@@ -1,4 +1,4 @@
-import { Component } from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import MarvelService from '../../services/MarvelService';
 import ErrorMessage from '../errorMessage/ErrorMessage';
@@ -19,12 +19,12 @@ class CharList extends Component {
   
   componentDidMount() {
     this.onRequest();
-    window.addEventListener('scroll', this.onScroll, {passive: true});
+    // window.addEventListener('scroll', this.onScroll, {passive: true});
   }
 
-  componentWillUnmount() {
-    window.removeEventListener('scroll', this.onScroll);
-  }
+  // componentWillUnmount() {
+  //   window.removeEventListener('scroll', this.onScroll);
+  // }
 
   onScroll = () => {
     if (window.pageYOffset + document.documentElement.clientHeight >= document.documentElement.scrollHeight) {
@@ -68,17 +68,44 @@ class CharList extends Component {
     })
   }
 
+  itemRefs = [];
+
+  setRef = (ref) => {
+    this.itemRefs.push(ref);
+  }
+
+  onItemFocus = (i) => {
+    this.itemRefs.forEach(item => {
+      item.classList.remove('char__item_selected');
+    })
+    this.itemRefs[i].classList.add('char__item_selected');
+    this.itemRefs[i].focus();
+  }
+
   viewChar(chars) {
-    const items = chars.map(item => {
-      const {name, thumbnail, id} = item;
+    const items = chars.map((item, i) => {
       let imgStyle = {'objectFit' : 'cover'};
-      if (thumbnail.includes('image_not_available.jpg')) {
+      if (item.thumbnail.includes('image_not_available.jpg')) {
         imgStyle = {'objectFit' : 'unset'};
       }
       return (
-        <li className="char__item" key={id} onClick={() => this.props.onCharSelected(id)}>
-          <img src={thumbnail} alt={name} style={imgStyle}/>
-          <div className="char__name">{name}</div>
+        <li
+          tabIndex="0"
+          ref={this.setRef}
+          className="char__item"
+          key={item.id}
+          onClick={() => {
+            this.props.onCharSelected(item.id);
+            this.onItemFocus(i);
+          }}
+          onKeyDown={(e) => {
+            if (e.key === ' ' || e.key === 'Enter') {
+              this.props.onCharSelected(item.id);
+              this.onItemFocus(i);
+            }
+          }}>
+          <img src={item.thumbnail} alt={item.name} style={imgStyle}/>
+          <div className="char__name">{item.name}</div>
         </li>
       )
     })
