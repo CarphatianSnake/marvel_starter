@@ -26,11 +26,11 @@ class CharList extends Component {
   //   window.removeEventListener('scroll', this.onScroll);
   // }
 
-  onScroll = () => {
-    if (window.pageYOffset + document.documentElement.clientHeight >= document.documentElement.scrollHeight) {
-      this.onRequest(this.state.offset);
-    }
-  }
+  // onScroll = () => {
+  //   if (window.pageYOffset + document.documentElement.clientHeight >= document.documentElement.scrollHeight) {
+  //     this.onRequest(this.state.offset);
+  //   }
+  // }
 
   onCharListLoading = () => {
     this.setState({
