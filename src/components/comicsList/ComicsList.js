@@ -6,7 +6,7 @@ import Spinner from '../spinner/Spinner';
 
 import './comicsList.scss';
 
-const ComicsList = (props) => {
+const ComicsList = () => {
   const [comics, setComics] = useState([]);
   const [newItemLoading, setNewItemLoading] = useState(false);
   const [offset, setOffset] = useState(0);
@@ -76,6 +76,10 @@ const ComicsList = (props) => {
       </button>
     </div>
   )
+}
+
+ComicsList.propTypes = {
+  onComicsSelected: PropTypes.func
 }
 
 export default ComicsList;
