@@ -1,5 +1,6 @@
-import React, { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
+
 import useMarvelService from '../../services/MarvelService';
 import ErrorMessage from '../errorMessage/ErrorMessage';
 import Spinner from '../spinner/Spinner';
@@ -30,9 +31,9 @@ const CharList = (props) => {
     if (newChars.length < 9) ended = true;
 
     setChars(chars => [...chars, ...newChars]);
-    setNewItemLoading(false);
+    setNewItemLoading(newItemLoading >= true);
     setOffset(offset => offset + 9);
-    setCharsEnded(ended);
+    setCharsEnded(charsEnded => ended);
   }
 
   const itemRefs = useRef([]);
@@ -48,12 +49,12 @@ const CharList = (props) => {
   function viewChar(chars) {
     const items = chars.map((item, i) => {
       let imgStyle = {'objectFit' : 'cover'};
-      if (item.thumbnail.includes('image_not_available.jpg')) {
+      if (item.thumbnail === 'http://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available.jpg') {
         imgStyle = {'objectFit' : 'unset'};
       }
       return (
         <li
-          tabIndex="0"
+          tabIndex={0}
           ref={(e) => itemRefs.current[i] = e}
           className="char__item"
           key={item.id}
@@ -71,7 +72,7 @@ const CharList = (props) => {
           <div className="char__name">{item.name}</div>
         </li>
       )
-    })
+    });
 
     return (
       <ul className="char__grid">
