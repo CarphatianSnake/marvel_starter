@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 
-function View({char}) {
+function ViewChar({char}) {
   const {name, description, thumbnail, homepage, wiki, comics} = char;
   let imgStyle = {'objectFit' : 'cover'};
   if (thumbnail.includes('image_not_available.jpg')) {
@@ -50,4 +50,4 @@ function View({char}) {
   )
 }
 
-export default View;
+export default ViewChar;

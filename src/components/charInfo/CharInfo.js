@@ -8,7 +8,7 @@ import Skeleton from '../skeleton/Skeleton';
 import './charInfo.scss';
 
 const ErrorMessage = lazy(() => import('../errorMessage/ErrorMessage'));
-const View = lazy(() => import('./view/View'));
+const ViewChar = lazy(() => import('./viewChar/ViewChar'));
 
 const CharInfo = (props) => {
   const [char, setChar] = useState(null);
@@ -35,7 +35,7 @@ const CharInfo = (props) => {
   const chooseCharMsg = char || loading || error ? null : <p className="char__select">Please select a character to see information</p>;
   const errorMessage = error ? <ErrorMessage/> : null;
   const skeleton = loading ? <Skeleton/> : null;
-  const content = !(loading || error || !char) ? <View char={char}/> : null;
+  const content = !(loading || error || !char) ? <ViewChar char={char}/> : null;
 
   return (
     <div className="char__info">
