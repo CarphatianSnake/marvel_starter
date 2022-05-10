@@ -1,13 +1,14 @@
-import { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { useState, useEffect, lazy, Suspense } from 'react';
 import PropTypes from 'prop-types';
 
 import useMarvelService from '../../services/MarvelService';
-import ErrorMessage from '../errorMessage/ErrorMessage';
 import Spinner from '../spinner/Spinner';
-import Skeleton from '../skeleton/Skeleton'
+import Skeleton from '../skeleton/Skeleton';
 
 import './charInfo.scss';
+
+const ErrorMessage = lazy(() => import('../errorMessage/ErrorMessage'));
+const View = lazy(() => import('./view/View'));
 
 const CharInfo = (props) => {
   const [char, setChar] = useState(null);
@@ -31,68 +32,20 @@ const CharInfo = (props) => {
     setChar(char);
   }
 
-  const skeleton = char || loading || error ? null : <Skeleton/>;
+  const chooseCharMsg = char || loading || error ? null : <p className="char__select">Please select a character to see information</p>;
   const errorMessage = error ? <ErrorMessage/> : null;
-  const spinner = loading ? <Spinner/> : null;
+  const skeleton = loading ? <Skeleton/> : null;
   const content = !(loading || error || !char) ? <View char={char}/> : null;
 
   return (
     <div className="char__info">
-      {skeleton}
+    <Suspense fallback={<Spinner/>}>
+      {chooseCharMsg}
       {errorMessage}
-      {spinner}
+      {skeleton}
       {content}
+    </Suspense>
     </div>
-  )
-}
-
-const View = ({char}) => {
-  const {name, description, thumbnail, homepage, wiki, comics} = char;
-  let imgStyle = {'objectFit' : 'cover'};
-  if (thumbnail.includes('image_not_available.jpg')) {
-    imgStyle = {'objectFit' : 'unset'};
-  }
-
-  const comicsList = () => {
-    if (comics.length < 1) return 'There is no comics for this character!'
-    else {
-      return (
-        comics.slice(0, 10).map((item, i) => {
-          return <Link
-          to={`comics/${item.resourceURI.replace('http://gateway.marvel.com/v1/public/comics/', '')}`}
-          key={i}
-          className="char__comics-item">
-            {item.name}
-          </Link>;    
-        })
-      )
-    }
-  }
-
-  return (
-    <>
-      <div className="char__basics">
-        <img src={thumbnail} alt={name} style={imgStyle}/>
-        <div>
-          <div className="char__info-name">{name}</div>
-          <div className="char__btns">
-            <a href={homepage} className="button button__main">
-              <div className="inner">homepage</div>
-            </a>
-            <a href={wiki} className="button button__secondary">
-              <div className="inner">Wiki</div>
-            </a>
-          </div>
-        </div>
-      </div>
-      <div className="char__descr">
-        {description}
-      </div>
-      <div className="char__comics">Comics:</div>
-      <ul className="char__comics-list">
-        {comicsList()}
-      </ul>
-    </>
   )
 }
 
