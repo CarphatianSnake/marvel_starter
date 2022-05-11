@@ -2,7 +2,6 @@ import { Link } from 'react-router-dom';
 import {CSSTransition, TransitionGroup} from 'react-transition-group';
 
 import '../charInfo.scss';
-import '../../../style/transition.scss';
 
 function ViewChar({char}) {
   const {name, description, thumbnail, homepage, wiki, comics} = char;
@@ -29,7 +28,7 @@ function ViewChar({char}) {
 
   return (
     <TransitionGroup component={null}>
-      <CSSTransition appear={true} timeout={500} classNames="transition">
+      <CSSTransition appear={true} timeout={500} classNames="char">
         <div class="char">
           <div className="char__basics">
             <img src={thumbnail} alt={name} style={imgStyle}/>

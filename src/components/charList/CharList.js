@@ -7,7 +7,6 @@ import ErrorMessage from '../errorMessage/ErrorMessage';
 import Spinner from '../spinner/Spinner';
 
 import './charList.scss';
-import '../../style/transition.scss';
 
 const CharList = (props) => {
 
@@ -56,7 +55,7 @@ const CharList = (props) => {
         imgStyle = {'objectFit' : 'unset'};
       }
       return (
-        <CSSTransition key={item.id} timeout={500} classNames="transition">
+        <CSSTransition key={item.id} timeout={500} classNames="char__item">
             <li
               tabIndex={0}
               ref={(e) => itemRefs.current[i] = e}

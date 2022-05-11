@@ -6,6 +6,13 @@
   grid-template-columns: 293px 550px auto;
   column-gap: 50px;
   align-items: start;
+  &-appear {
+    opacity: 0;
+    &-active {
+      opacity: 1;
+      transition: opacity 500ms;
+    }
+  }
   &__img {
     width: 293px;
     height: 450px;

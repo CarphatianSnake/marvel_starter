@@ -7,7 +7,6 @@ import ErrorMessage from '../../errorMessage/ErrorMessage';
 import Spinner from '../../spinner/Spinner';
 
 import './singleComicPage.scss';
-import '../../../style/transition.scss';
 
 const SingleComicPage = () => {
   const {comicId} = useParams();
@@ -47,7 +46,7 @@ const View = ({comic}) => {
   
   return (
     <TransitionGroup component={null}>
-      <CSSTransition appear={true} timeout={500} classNames="transition">
+      <CSSTransition appear={true} timeout={500} classNames="single-comic">
         <div className="single-comic">
           <img src={thumbnail} alt={title} className="single-comic__img"/>
           <div className="single-comic__info">

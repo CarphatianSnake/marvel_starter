@@ -7,7 +7,6 @@ import ErrorMessage from '../errorMessage/ErrorMessage';
 import Spinner from '../spinner/Spinner';
 
 import './comicsList.scss';
-import '../../style/transition.scss';
 
 const ComicsList = () => {
   const [comics, setComics] = useState([]);
@@ -42,7 +41,7 @@ const ComicsList = () => {
     const items = comics.map((item, i) => {
       
       return (
-        <CSSTransition key={i} classNames="transition" timeout={500}>
+        <CSSTransition key={i} classNames="comics__item" timeout={500}>
           <li 
             className="comics__item"
             tabIndex="0">

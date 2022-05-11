@@ -5,7 +5,6 @@ import Spinner from '../spinner/Spinner';
 import ErrorMessage from '../errorMessage/ErrorMessage';
 
 import './randomChar.scss';
-import '../../style/transition.scss';
 
 import mjolnir from '../../resources/img/mjolnir.png';
 
@@ -20,6 +19,7 @@ const RandomChar = () => {
     const timerId = setInterval(updateChar, 30000);
 
     return () => clearInterval(timerId);
+    // eslint-disable-next-line
   }, [])
 
   const updateChar = () => {
@@ -79,7 +79,7 @@ const View = ({char}) => {
 
   return (
     <TransitionGroup component={null}>
-      <CSSTransition appear={true} timeout={500} classNames="transition">
+      <CSSTransition appear={true} timeout={500} classNames="randomchar__block">
         <div className="randomchar__block">
           <img src={thumbnail} alt={name} className="randomchar__img" style={imgStyle}/>
           <div className="randomchar__info">
