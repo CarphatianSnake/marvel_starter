@@ -10,20 +10,6 @@
     display: grid;
     grid-template-columns: 180px auto;
     column-gap: 30px;
-    &-enter {
-      opacity: 0;
-      &-active {
-        opacity: 1;
-        transition: opacity 500ms;
-      }
-    }
-    &-exit {
-      opacity: 1;
-      &-active {
-        opacity: 0;
-        transition: opacity 500ms;
-      }
-    }
   }
   &__img {
     width: 180px;

@@ -1,5 +1,4 @@
 import {useState, useEffect} from 'react';
-import { CSSTransition } from 'react-transition-group'
 import useMarvelService from '../../services/MarvelService';
 import Spinner from '../spinner/Spinner';
 import ErrorMessage from '../errorMessage/ErrorMessage';
@@ -77,23 +76,21 @@ const View = ({char}) => {
   }
 
   return (
-    <CSSTransition classNames="randomchar__block" timeout={500}>
-      <div className="randomchar__block">
-        <img src={thumbnail} alt="Random character" className="randomchar__img" style={imgStyle}/>
-        <div className="randomchar__info">
-          <p className="randomchar__name">{name}</p>
-          <p className="randomchar__descr">{description}</p>
-          <div className="randomchar__btns">
-            <a href={homepage} className="button button__main">
-              <div className="inner">homepage</div>
-            </a>
-            <a href={wiki} className="button button__secondary">
-              <div className="inner">Wiki</div>
-            </a>
-          </div>
+    <div className="randomchar__block">
+      <img src={thumbnail} alt="Random character" className="randomchar__img" style={imgStyle}/>
+      <div className="randomchar__info">
+        <p className="randomchar__name">{name}</p>
+        <p className="randomchar__descr">{description}</p>
+        <div className="randomchar__btns">
+          <a href={homepage} className="button button__main">
+            <div className="inner">homepage</div>
+          </a>
+          <a href={wiki} className="button button__secondary">
+            <div className="inner">Wiki</div>
+          </a>
         </div>
       </div>
-    </CSSTransition>
+    </div>
   )
 }
 
