@@ -7,6 +7,7 @@ import ErrorMessage from '../errorMessage/ErrorMessage';
 import Spinner from '../spinner/Spinner';
 
 import './comicsList.scss';
+import '../../style/transition.scss';
 
 const ComicsList = () => {
   const [comics, setComics] = useState([]);
@@ -18,6 +19,7 @@ const ComicsList = () => {
 
   useEffect(() => {
     onRequest(offset, true)
+    // eslint-disable-next-line
   }, [])
 
   const onRequest = (offset, initial) => {
@@ -40,7 +42,7 @@ const ComicsList = () => {
     const items = comics.map((item, i) => {
       
       return (
-        <CSSTransition classNames="comics__item" timeout={500} key={i}>
+        <CSSTransition key={i} classNames="transition" timeout={500}>
           <li 
             className="comics__item"
             tabIndex="0">

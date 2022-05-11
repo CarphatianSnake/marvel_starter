@@ -7,6 +7,7 @@ import ErrorMessage from '../errorMessage/ErrorMessage';
 import Spinner from '../spinner/Spinner';
 
 import './charList.scss';
+import '../../style/transition.scss';
 
 const CharList = (props) => {
 
@@ -19,6 +20,7 @@ const CharList = (props) => {
 
   useEffect(() => {
     onRequest(offset, true)
+    // eslint-disable-next-line
   }, [])
 
   const onRequest = (offset, initial) => {
@@ -54,10 +56,7 @@ const CharList = (props) => {
         imgStyle = {'objectFit' : 'unset'};
       }
       return (
-        <CSSTransition
-          classNames="char__item"
-          key={item.id}
-          timeout={500}>
+        <CSSTransition key={item.id} timeout={500} classNames="transition">
             <li
               tabIndex={0}
               ref={(e) => itemRefs.current[i] = e}

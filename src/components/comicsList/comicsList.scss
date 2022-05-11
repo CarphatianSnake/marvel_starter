@@ -32,19 +32,5 @@
     &:hover {
       transform: translateY(-5px);
     }
-    &-enter {
-      opacity: 0;
-      &-active {
-        opacity: 1;
-        transition: opacity 500ms;
-      }
-    }
-    &-exit {
-      opacity: 1;
-      &-active {
-        opacity: 0;
-        transition: opacity 500ms;
-      }
-    }
   }
 }

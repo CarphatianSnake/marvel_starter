@@ -39,12 +39,12 @@ const CharInfo = (props) => {
 
   return (
     <div className="char__info">
-    <Suspense fallback={<Spinner/>}>
-      {chooseCharMsg}
-      {errorMessage}
-      {skeleton}
-      {content}
-    </Suspense>
+      <Suspense fallback={<Spinner/>}>
+        {chooseCharMsg}
+        {errorMessage}
+        {skeleton}
+        {content}
+      </Suspense>
     </div>
   )
 }

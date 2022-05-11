@@ -1,4 +1,8 @@
 import { Link } from 'react-router-dom';
+import {CSSTransition, TransitionGroup} from 'react-transition-group';
+
+import '../charInfo.scss';
+import '../../../style/transition.scss';
 
 function ViewChar({char}) {
   const {name, description, thumbnail, homepage, wiki, comics} = char;
@@ -24,29 +28,33 @@ function ViewChar({char}) {
   }
 
   return (
-    <>
-      <div className="char__basics">
-        <img src={thumbnail} alt={name} style={imgStyle}/>
-        <div>
-          <div className="char__info-name">{name}</div>
-          <div className="char__btns">
-            <a href={homepage} className="button button__main">
-              <div className="inner">homepage</div>
-            </a>
-            <a href={wiki} className="button button__secondary">
-              <div className="inner">Wiki</div>
-            </a>
+    <TransitionGroup component={null}>
+      <CSSTransition appear={true} timeout={500} classNames="transition">
+        <div class="char">
+          <div className="char__basics">
+            <img src={thumbnail} alt={name} style={imgStyle}/>
+            <div>
+              <div className="char__info-name">{name}</div>
+              <div className="char__btns">
+                <a href={homepage} className="button button__main">
+                  <div className="inner">homepage</div>
+                </a>
+                <a href={wiki} className="button button__secondary">
+                  <div className="inner">Wiki</div>
+                </a>
+              </div>
+            </div>
           </div>
+          <div className="char__descr">
+            {description}
+          </div>
+          <div className="char__comics">Comics:</div>
+          <ul className="char__comics-list">
+            {comicsList()}
+          </ul>
         </div>
-      </div>
-      <div className="char__descr">
-        {description}
-      </div>
-      <div className="char__comics">Comics:</div>
-      <ul className="char__comics-list">
-        {comicsList()}
-      </ul>
-    </>
+      </CSSTransition>
+    </TransitionGroup>
   )
 }
 
