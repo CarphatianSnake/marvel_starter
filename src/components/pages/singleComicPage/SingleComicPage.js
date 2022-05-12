@@ -16,6 +16,7 @@ const SingleComicPage = () => {
 
   useEffect(() => {
     updateComic();
+    // eslint-disable-next-line
   }, [comicId])
 
   const updateComic = () => {
@@ -42,15 +43,15 @@ const SingleComicPage = () => {
 }
 
 const View = ({comic}) => {
-  const {thumbnail, title, description, pageCount, language, price} = comic;
+  const {thumbnail, name, description, pageCount, language, price} = comic;
   
   return (
     <TransitionGroup component={null}>
       <CSSTransition appear={true} timeout={500} classNames="single-comic">
         <div className="single-comic">
-          <img src={thumbnail} alt={title} className="single-comic__img"/>
+          <img src={thumbnail} alt={name} className="single-comic__img"/>
           <div className="single-comic__info">
-            <h2 className="single-comic__name">{title}</h2>
+            <h2 className="single-comic__name">{name}</h2>
             <p className="single-comic__descr">{description ? description : 'There is no description'}</p>
             <p className="single-comic__descr">{pageCount ? pageCount + ' pages' : null}</p>
             <p className="single-comic__descr">Language: {language}</p>

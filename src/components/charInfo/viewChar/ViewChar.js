@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import {CSSTransition, TransitionGroup} from 'react-transition-group';
+import { CSSTransition, TransitionGroup } from 'react-transition-group';
 
 import '../charInfo.scss';
 
@@ -29,7 +29,7 @@ function ViewChar({char}) {
   return (
     <TransitionGroup component={null}>
       <CSSTransition appear={true} timeout={500} classNames="char">
-        <div class="char">
+        <div className="char">
           <div className="char__basics">
             <img src={thumbnail} alt={name} style={imgStyle}/>
             <div>
