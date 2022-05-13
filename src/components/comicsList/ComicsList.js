@@ -57,7 +57,7 @@ const ComicsList = () => {
     const items = comics.map((item, i) => {
       
       return (
-        <CSSTransition appear={true} key={i} classNames="comics__item" timeout={500}>
+        <CSSTransition key={i} classNames="comics__item" timeout={500}>
           <li 
             className="comics__item"
             tabIndex="0">

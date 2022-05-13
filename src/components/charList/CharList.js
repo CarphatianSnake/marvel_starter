@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, useMemo } from 'react';
 import PropTypes from 'prop-types';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
 
@@ -71,7 +71,7 @@ const CharList = (props) => {
         imgStyle = {'objectFit' : 'unset'};
       }
       return (
-        <CSSTransition appear={true} key={item.id} timeout={500} classNames="char__item">
+        <CSSTransition key={item.id} timeout={500} classNames="char__item">
             <li
               tabIndex={0}
               ref={(e) => itemRefs.current[i] = e}
@@ -101,10 +101,15 @@ const CharList = (props) => {
       </ul>
     )
   }
+
+  const elements = useMemo(() => {
+    return setContent(process, () => viewChar(chars), newItemLoading);
+    // eslint-disable-next-line
+  }, [process])
   
   return (
     <div className="char__list">
-      {setContent(process, () => viewChar(chars), newItemLoading)}
+      {elements}
       <button
         className="button button__main button__long"
         disabled={newItemLoading}
