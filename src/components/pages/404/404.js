@@ -8,7 +8,7 @@ const Page404 = () => {
     <div className="img404">
       <ErrorMessage/>
       <p className="text404">Page does not exist</p>
-      <Link className="link404" to="/">Back to main page</Link>
+      <Link className="link404" to="/"><span>Back to main page</span></Link>
     </div>
   )
 }

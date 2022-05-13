@@ -11,6 +11,12 @@
   font-weight: bold;
   font-size: 22px;
   margin-top: 22px;
+  span {
+    text-decoration: underline;
+  }
+  span:hover {
+    text-decoration: none;
+  }
 }
 
 .img404 {
