@@ -3,8 +3,8 @@ import { CSSTransition, TransitionGroup } from 'react-transition-group';
 
 import '../charInfo.scss';
 
-function ViewChar({char}) {
-  const {name, description, thumbnail, homepage, wiki, comics} = char;
+function ViewChar({data}) {
+  const {name, description, thumbnail, homepage, wiki, comics} = data;
   let imgStyle = {'objectFit' : 'cover'};
   if (thumbnail.includes('image_not_available.jpg')) {
     imgStyle = {'objectFit' : 'unset'};

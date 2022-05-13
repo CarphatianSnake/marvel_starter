@@ -32,7 +32,7 @@
     &:hover {
       transform: translateY(-5px);
     }
-    &-enter {
+    &-appear {
       opacity: 0;
       &-active {
         opacity: 1;
